@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './features/home/home.component';
 import { FuncionalidadModule } from './features/funcionalidad/funcionalidad.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +15,8 @@ import { FuncionalidadModule } from './features/funcionalidad/funcionalidad.modu
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FuncionalidadModule
+    FuncionalidadModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
