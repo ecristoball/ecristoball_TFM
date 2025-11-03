@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './features/home/home.component';
 import { FuncionalidadModule } from './features/funcionalidad/funcionalidad.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FuncionalidadModule } from './features/funcionalidad/funcionalidad.modu
     BrowserModule,
     AppRoutingModule,
     FuncionalidadModule,
+    HttpClientModule,
 
   ],
   providers: [],

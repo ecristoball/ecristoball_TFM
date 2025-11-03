@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
 
 @Component({
   selector: 'app-options-level2',
@@ -6,7 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './options-level2.component.css'
 })
 export class OptionsLevel2Component {
+  level2Items: any[] = [];
 
+  constructor(private showlevel1service: Showlevel1Service) {}
+  ngOnInit(): void {
+    this.showlevel1service.getByFrontLevel(2).subscribe(data => {
+      this.level2Items = data;
+      console.log(data);
+    });
+  }
+  /*
    level2DocumentItems=[
     {id:1, name:'Con Selector'},
     {id:2, name:'Sin Selector'},
@@ -21,5 +31,11 @@ export class OptionsLevel2Component {
     {id:11, name:'Servicio del Ministerio'},
     {id:12, name:'Peps & Sanctions'},
     {id:13, name:'eSign'}
-  ]
+  ]*/
+
 }
+
+
+
+
+  

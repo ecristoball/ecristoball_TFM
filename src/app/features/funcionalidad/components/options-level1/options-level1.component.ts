@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FuncionalidadService } from '../../../../services/funcionalidad.service';
+import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
 
 @Component({
   selector: 'app-options-level1',
@@ -7,7 +9,18 @@ import { Component } from '@angular/core';
 })
 export class OptionsLevel1Component {
 
+  level1Items: any[] = [];
 
+  constructor(private showlevel1service: Showlevel1Service) {}
+
+  ngOnInit(): void {
+    this.showlevel1service.getByFrontLevel(1).subscribe(data => {
+      this.level1Items = data;
+      console.log(data);
+    });
+  }
+
+/*
   level1Items=[
     {id:1, name:'Confirmar'},
     {id:2, name:'No Confirmar'},
@@ -23,5 +36,5 @@ export class OptionsLevel1Component {
     {id:12, name:'Peps & Sanctions'},
     {id:13, name:'eSign'}
   ]
-
+*/
 }

@@ -1,0 +1,37 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface JsonKey {
+  id: number;
+  key_name: string;
+  parent_key: string | null;
+  level: number;
+  frontlevel:number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class Showlevel1Service {
+  private apiUrl = 'http://127.0.0.1:8000/api/json-funcionalidades-keys'; // endpoint Laravel
+
+  constructor(private http: HttpClient) { }
+
+    getAllKeys(): Observable<JsonKey[]> {
+      return this.http.get<JsonKey[]>(this.apiUrl);
+    }
+
+    getByParent(parent: string): Observable<JsonKey[]> {
+      return this.http.get<JsonKey[]>(`${this.apiUrl}/parent/${parent}`);
+    }
+
+    getByFrontLevel(frontlevel: number | string): Observable<JsonKey[]> {
+      return this.http.get<JsonKey[]>(`${this.apiUrl}/frontlevel/${frontlevel}`);
+    }
+
+}
+
+
+
+
