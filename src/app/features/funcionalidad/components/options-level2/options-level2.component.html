@@ -1,1 +1,17 @@
-<app-item-list [items]="level2Items"></app-item-list>
+
+<main class="cont">
+  <div *ngIf="loading">Cargando...</div>
+
+  <!-- Cada grupo (document, selfie, etc.) -->
+  <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
+    <h3 class="group-title">{{ groupKey | uppercase }}</h3>
+
+    <!-- Contenedor en filas (máximo 3 por fila) -->
+    <div class="group-items">
+      <app-item
+        *ngFor="let item of level2Groups[groupKey]"
+        [item]="item">
+      </app-item>
+    </div>
+  </div>
+</main>

@@ -1,21 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
+import { Subscription } from 'rxjs';
+import { SelectionService } from '../../../../services/selection.service';
 
 @Component({
   selector: 'app-options-level2',
   templateUrl: './options-level2.component.html',
   styleUrl: './options-level2.component.css'
 })
-export class OptionsLevel2Component {
-  level2Items: any[] = [];
+export class OptionsLevel2Component implements OnInit, OnDestroy {
+  //level2Items: any[] = [];
 
-  constructor(private showlevel1service: Showlevel1Service) {}
-  ngOnInit(): void {
-    this.showlevel1service.getByFrontLevel(2).subscribe(data => {
-      this.level2Items = data;
+  level2Groups: {[key:string]:any[]}={};
+  loading=false;
+  private subscription!: Subscription;
+
+  constructor(private showlevel1service: Showlevel1Service, private selectionService:SelectionService) {}
+
+
+  ngOnInit(): void { 
+
+    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
+      if (!key) return;
+      this.loading = true;
+     
+      this.showlevel1service.getOptionsBy(2, key).subscribe(data => {
+      //this.level2Items =[...this.level2Items, ...data];
+      this.level2Groups[key] = data;
+      this.loading = false;
       console.log(data);
     });
+    });
+    /*
+
+    this.subscription = this.selectionService.selectedKey$.subscribe(key => {
+      if (!key) return;
+      this.loading = true;
+     
+      this.showlevel1service.getItemsBy(1, key).subscribe(data => {
+      this.level2Items = data;
+      this.loading = false;
+      console.log(data);
+    });
+    });
+    */
+
+   
   }
+   objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+   }
+  ngOnDestroy(): void {
+     this.subscription.unsubscribe();
+  }
+}
   /*
    level2DocumentItems=[
     {id:1, name:'Con Selector'},
@@ -33,7 +71,7 @@ export class OptionsLevel2Component {
     {id:13, name:'eSign'}
   ]*/
 
-}
+
 
 
 

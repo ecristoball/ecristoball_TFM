@@ -1,0 +1,37 @@
+  /* Contenedor principal */
+.cont {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Cada grupo (document, selfie, etc.) */
+.group-box {
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #fafafa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Título del grupo */
+.group-title {
+  margin-bottom: 0.5rem;
+  font-size: 0.6rem;
+  color: #333;
+}
+
+/* Contenedor de ítems dentro de un grupo */
+.group-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  gap: 1rem;
+}
+
+/*
+  - Cada item ocupa mínimo 30% del ancho disponible.
+  - Si hay espacio para más de 3, no creará una cuarta columna (auto-wrap lo controla).
+  - Si no caben más, bajan automáticamente a la siguiente fila.
+*/
+
