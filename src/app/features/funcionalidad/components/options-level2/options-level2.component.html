@@ -1,17 +1,22 @@
-
 <main class="cont">
   <div *ngIf="loading">Cargando...</div>
 
-  <!-- Cada grupo (document, selfie, etc.) -->
   <div *ngFor="let groupKey of objectKeys(level2Groups)" class="group-box">
     <h3 class="group-title">{{ groupKey | uppercase }}</h3>
 
-    <!-- Contenedor en filas (máximo 3 por fila) -->
-    <div class="group-items">
+    <div
+      cdkDropList
+      [id]="groupKey + '-list'"
+      class="group-items"
+      [cdkDropListData]="level2Groups[groupKey]"
+      [cdkDropListConnectedTo]="['selected-list']"
+      (cdkDropListDropped)="onItemDropped($event)"
+    >
       <app-item
         *ngFor="let item of level2Groups[groupKey]"
-        [item]="item">
-      </app-item>
+        [item]="item"
+        cdkDrag
+      ></app-item>
     </div>
   </div>
 </main>

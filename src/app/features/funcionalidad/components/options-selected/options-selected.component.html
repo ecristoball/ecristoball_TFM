@@ -1,1 +1,17 @@
-<p>options-selected works!</p>
+<div
+  cdkDropList
+  id="selected-list"
+  [cdkDropListData]="selectedItems"
+  class="selected-container"
+  [cdkDropListConnectedTo]="['document-list', 'selfie-list']"
+  (cdkDropListDropped)="onItemDropped($event)"
+>
+  <app-item *ngFor="let item of selectedItems" [item]="item" cdkDrag></app-item>
+
+  <button (click)="insertValue()"> insertar</button>
+  <button (click)="crearJson()"> MOSTRAR JSON</button>
+  <div *ngIf="jsonResult" class="json-output">
+    <h3>Resultado:</h3>
+    <pre>{{ jsonResult | json }}</pre>
+  </div>
+</div>

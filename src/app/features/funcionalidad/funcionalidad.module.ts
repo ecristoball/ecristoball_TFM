@@ -7,6 +7,9 @@ import { OptionsLevel1Component } from './components/options-level1/options-leve
 import { OptionsLevel2Component } from './components/options-level2/options-level2.component';
 import { OptionsSelectedComponent } from './components/options-selected/options-selected.component';
 import { SharedModule } from '../../shared/shared.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     FuncionalidadRoutingModule,
-    SharedModule
+    SharedModule,
+    DragDropModule,
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class FuncionalidadModule { }

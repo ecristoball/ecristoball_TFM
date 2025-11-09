@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { JsonKey, Showlevel1Service } from '../../../../services/showlevel1.service';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
+import { CdkDragDrop,transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-options-level2',
@@ -53,7 +54,24 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
   ngOnDestroy(): void {
      this.subscription.unsubscribe();
   }
+onItemDropped(event: CdkDragDrop<any[]>) {
+  if (event.previousContainer !== event.container) {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
 }
+
+}
+
+
+
+
+
+
   /*
    level2DocumentItems=[
     {id:1, name:'Con Selector'},

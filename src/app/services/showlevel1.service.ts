@@ -37,7 +37,15 @@ export class Showlevel1Service {
 
     getOptionsBy(frontlevel: number, frontparent: string) {
         return this.http.get<JsonKey[]>(`${this.apiUrl}/${frontlevel}/${frontparent}`);
-      }
+    }
+
+    getLevelsBy(frontlevel: number) {
+        return this.http.get<JsonKey[]>(`${this.apiUrl}/levelsbyfrontlevel/${frontlevel}`);
+    }
+    updateValue(keyName: string, value: any) {
+       return this.http.put<JsonKey[]>(`${this.apiUrl}/update/${keyName}`, {value});
+    }
+
 
 }
 
