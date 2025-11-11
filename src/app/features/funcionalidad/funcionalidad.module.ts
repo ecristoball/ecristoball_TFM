@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+//import { DialogoGenericoComponent } from '../../shared/dialogo-generico/dialogo-generico.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     OptionsLevel1Component,
     OptionsLevel2Component,
     OptionsSelectedComponent
-    
   ],
+
   imports: [
     CommonModule,
     FuncionalidadRoutingModule,

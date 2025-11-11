@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CrearJsonService } from '../../../../services/crear-json.service';
 import { Showlevel1Service,JsonKey } from '../../../../services/showlevel1.service';
+import { MostrarDialogoService } from '../../../../services/mostrar-dialogo.service';
+
 
 @Component({
   selector: 'app-options-selected',
@@ -17,7 +19,7 @@ export class OptionsSelectedComponent {
   tojsonItems: any[] = [];
   jsonResult: any;
 
-  constructor (private showlevel1service: Showlevel1Service,private crearJsonService:CrearJsonService) {}
+  constructor (private mostrarDialogoService: MostrarDialogoService, private showlevel1service: Showlevel1Service, private crearJsonService:CrearJsonService) {}
 
 
   
@@ -33,27 +35,46 @@ export class OptionsSelectedComponent {
  
   @Input() connectedTo: string[] = [];
   selectedItems: any[] = [];
+  copiedItem: any={};
+
   onItemDropped(event: CdkDragDrop<any[]>) {
+    console.log("itemgrop")
       if (event.previousContainer !== event.container) {
         const item = event.previousContainer.data[event.previousIndex];
 
         // Clonamos el item para no modificar el original
-        const copiedItem = { ...item };
+        this.copiedItem = { ...item };
+        item.locked = true;
 
         // Insertamos el clon en la lista destino
-        event.container.data.splice(event.currentIndex, 0, copiedItem);
-
-        console.log("Item copiado sin borrar el original:", copiedItem);
+        event.container.data.splice(event.currentIndex, 0, this.copiedItem);
+        console.log("Item copiado sin borrar el original:", this.copiedItem);
       }
-    }
+      console.log ("drop")
+      const itemType = event.item.data?.type || this.copiedItem.key_name;
+      console.log("item es ", itemType)
 
-  insertValue(){
-    this.showlevel1service.updateValue('document', 'correcto').subscribe({
+      const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
+// para mostrar dialogos, no drag&drop
+     if (dialog$) {
+      dialog$.subscribe(result => {
+        if (result) {
+          console.log(`Resultado del diálogo (${itemType}):`, result);
+        // guardar el valor en backend Laravel
+        this.insertValue(itemType,result)
+        }
+     });
+    }
+  }
+
+  insertValue(key:string,valor:any){
+    console.log("insert",key,valor)
+    this.showlevel1service.updateValue(key, valor).subscribe({
       next: (res) => console.log(res),
       error: (err) => console.error(err)
     });
   }
-  
+
   crearJson() {
     this.showlevel1service.getLevelsBy(2).subscribe(data => {
       this.tojsonItems = data;
@@ -62,5 +83,20 @@ export class OptionsSelectedComponent {
       console.log('JSON generado:', this.jsonResult);
     });
   }
+onDrop(event: any) {
+  console.log ("drop")
+  const itemType = event.item.data?.type || 'scoresConfiguration';
+
+  const dialog$ = this.mostrarDialogoService.openDialogForItem(itemType);
+
+  if (dialog$) {
+    dialog$.subscribe(result => {
+      if (result) {
+        console.log(`Resultado del diálogo (${itemType}):`, result);
+        // aquí puedes guardar el valor en tu backend Laravel
+      }
+    });
+  }
+}
 
 }

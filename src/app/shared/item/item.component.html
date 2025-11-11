@@ -1,5 +1,5 @@
-<main classs="main"(click)="onCardClick()">
-    <div class="item-card">
+<main class="main" >
+    <div class="item-card"[ngClass] ="{'active':isActive}" (click)="onCardClick()">
         <h2>{{item.key_name}}</h2>
     </div>
     

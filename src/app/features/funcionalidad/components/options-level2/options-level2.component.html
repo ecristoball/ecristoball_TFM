@@ -15,8 +15,12 @@
       <app-item
         *ngFor="let item of level2Groups[groupKey]"
         [item]="item"
+        class="item"
         cdkDrag
+         [cdkDragDisabled]="item.locked"
+        [ngClass]="{ 'locked': item.locked }"
       ></app-item>
     </div>
   </div>
 </main>
+

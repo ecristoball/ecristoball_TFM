@@ -22,3 +22,6 @@ h2{
     overflow: hidden;
     line-height:1;
 }
+.item-card.active{
+    background-color: red;
+}

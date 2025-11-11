@@ -32,7 +32,29 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
       console.log(data);
     });
     });
-    /*
+       
+  }
+   objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+   }
+  ngOnDestroy(): void {
+     this.subscription.unsubscribe();
+  }
+  onItemDropped(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer !== event.container) {
+      
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+}
+
+/*
 
     this.subscription = this.selectionService.selectedKey$.subscribe(key => {
       if (!key) return;
@@ -45,29 +67,6 @@ export class OptionsLevel2Component implements OnInit, OnDestroy {
     });
     });
     */
-
-   
-  }
-   objectKeys(obj: any): string[] {
-    return Object.keys(obj);
-   }
-  ngOnDestroy(): void {
-     this.subscription.unsubscribe();
-  }
-onItemDropped(event: CdkDragDrop<any[]>) {
-  if (event.previousContainer !== event.container) {
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
-  }
-}
-
-}
-
-
 
 
 
